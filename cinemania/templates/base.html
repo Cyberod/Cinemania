@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Cinemania is a website that recommends movies to watch based on your preference">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="movies, cinema, recommendation">
+    <meta name="Cyberod" content="Cinemania">
+    <title>Cinemania</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+    <!-- Box icon-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    {% if messages %}
+    <ul class="messages"></ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <!-- Header -->
+    <header class="header">
+    
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <i class='bx bxs-camera-movie'></i>Cine<span class="logo-name">Mania</span>
+        </a>
+        <!-- Search Box -->
+        <div class="search-box" search-box>
+            <div class="search-wrapper" search-wrapper>
+                <input type="text" name="search" aria-label="search movies" placeholder="Search any movies..." class="search-field" search-field>
+                
+                <i class="bx bx-search leading-icon" alt="search "></i>
+
+            </div>
+            <button class="search-btn" search-toggler>
+                <img src="{% static 'images/close.png' %}" width="24" height="24" alt="close search">
+            </button>
+        </div>
+        <button>
+            <i class="bx bx-search search-btn" alt="open search " search-toggler></i>
+        </button>
+        
+
+        <!-- User -->
+        
+        <!-- side NavBar -->    
+    </header>
+
+    {% include 'navbar.html' %}
+
+   
+    {% block content %}
+ 
+
+    {% endblock %}
+   
+
+
+    
+        <!-- script Link -->
+        <script type="module" src="{% static 'js/global.js' %}"></script>
+        <script type="module" src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

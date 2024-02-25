@@ -1,0 +1,49 @@
+{% load static %}
+<nav class="sidebar active" sidebar>
+    <div class="sidebar-inner">
+        <div class="sidebar-list">
+            <a href="#" class="sidebar-link">
+                <i class='bx bx-home-circle sidebar-title'></i>Home
+            </a>
+
+            <a href="#" class="sidebar-link dropdown">
+                <i class="bx bx-compass sidebar-title sub-btn"></i>
+                Explore <i class="bx bx-chevron-right"></i>
+                <div class="sidebar-menu">
+                    <a href="" class="sub-menu active" menu-close>Action</a>
+                    <a href="" class="sub-menu" menu-close>Horror</a>
+                    <a href="" class="sub-menu" menu-close>Drama</a>
+                    <a href="" class="sub-menu" menu-close>Adventure</a>
+                    <a href="" class="sub-menu" menu-close>Sci-fi</a>
+                    <a href="" class="sub-menu" menu-close>Comedy</a>
+                </div>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <i class='bx bxs-hot sidebar-title'></i>Trending
+            </a>
+
+            <a href="" class="sidebar-link">
+                <i class="bx bx-heart-circle sidebar-title"></i>Favourites
+            </a>
+
+        </div>
+        
+        <div class="sidebar-list lang">
+            <a href="#" class="sidebar-link">
+                <p class="sidebar-title sub-btn">Language<i class="bx bxs-chevron-right dropdown"></i></p>
+                
+            <div class="sidebar-menu">
+                <a href="" class="sub-menu" menu-close>English</a>
+                <a href="" class="sub-menu" menu-close>Hindi</a>
+                <a href="" class="sub-menu" menu-close>Bangali</a>
+            </div>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <p class="copyright">Cinemania Copyright 2024 <a href="https://github.com/Cyberod/Cinemania">Jonaz</a></p>
+
+            <img src="{% static 'images/tmdb-logo.svg' %}" width="130" height="17" alt="tmdb-logo">
+        </div>
+</nav>
