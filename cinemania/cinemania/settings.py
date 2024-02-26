@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,3 +130,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Read configuration from .env file
+TMDB_API_KEY = config('TMDB_API_KEY')
+TMDB_API_BASE_URL = config('TMDB_API_BASE_URL')
+TMDB_IMAGE_BASE_URL = config('TMDB_IMAGE_BASE_URL')
+

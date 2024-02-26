@@ -252,16 +252,6 @@
                         <img src="{% static 'images/slider-control.jpg' %}" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
                     </button>
 
-
-                    
-                    
-
-
-
-                    
-
-
-
                 </div>
             </div>
 
@@ -272,6 +262,83 @@
         <section class="movie-list" aria-label="upcoming movie">
 
             <div class="title-wrapper">
+                <h3 class="title-large">Popular Movies</h3>
+            </div>
+
+
+            <div class="slider-list">
+                <div class="slider-inner">
+
+
+                    {% for popular in popular_movies %}
+                    <div class="movie-card">
+
+                        <figure class="poster-box card-banener">
+                            <img src="{{image_base_url}}{{popular.poster_path}}" alt="{{popular.title}}" class="img-cover">
+                        </figure>
+
+                        <h4 class="title">{{popular.title}}</h4>
+
+                        <div class="meta-list">
+                            <div class="meta-item">
+
+                                <span class="span">{{popular.vote_average|floatformat:1}}</span>
+                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
+                            </div>
+
+                            <div class="card-badge">{{popular.release_date|slice:"4"}}</div>
+                        </div>
+
+                        <a href="./detail.html" class="card-btn" title="{{popular.title}}"></a>
+                    </div>
+                    {% endfor %}
+            
+        </section>
+
+
+        <section class="movie-list">
+
+            <div class="title-wrapper">
+                <h3 class="title-large">Top Rated</h3>
+            </div>
+
+
+            <div class="slider-list">
+                <div class="slider-inner">
+
+
+                    {% for top_rated in top_rated_movies %}
+                    <div class="movie-card">
+
+                        <figure class="poster-box card-banener">
+                            <img src="{{image_base_url}}{{top_rated.poster_path}}" alt="{{top_rated.title}}" class="img-cover">
+                        </figure>
+
+                        <h4 class="title">{{top_rated.title}}</h4>
+
+                        <div class="meta-list">
+                            <div class="meta-item">
+
+                                <span class="span">{{top_rated.vote_average|floatformat:1}}</span>
+                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
+                            </div>
+
+                            <div class="card-badge">{{ top_rated.release_date|slice:"4" }}</div>
+                        </div>
+
+                        <a href="./detail.html" class="card-btn" title="{{top_rated.title}}"></a>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+        </section>
+
+        <section class="movie-list">
+
+            <div class="title-wrapper">
                 <h3 class="title-large">Upcoming Movies</h3>
             </div>
 
@@ -279,119 +346,34 @@
             <div class="slider-list">
                 <div class="slider-inner">
 
+
+                    {% for upcoming in upcoming_movies %}
                     <div class="movie-card">
 
                         <figure class="poster-box card-banener">
-                            <img src="{% static 'images/slider-control.jpg' %}" alt="Puss in Boots: The Last Wish" class="img-cover">
+                            <img src="{{image_base_url}}{{upcoming.poster_path}}" alt="{{upcoming.title}}" class="img-cover">
                         </figure>
 
-                        <h4 class="title">Puss in Boots: The Last Wish</h4>
+                        <h4 class="title">{{upcoming.title}}</h4>
 
                         <div class="meta-list">
                             <div class="meta-item">
 
-                                <span class="span">8.4</span>
+                                <span class="span">{{upcoming.vote_average|floatformat:1}}</span>
                                 <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
                             </div>
 
-                            <div class="card-badge">2022</div>
+                            <div class="card-badge">{{ upcoming.release_date|slice:"4" }}</div>
                         </div>
 
-                        <a href="./detail.html" class="card-btn" title="Puss in Boots: The Last Wish"></a>
+                        <a href="./detail.html" class="card-btn" title="{{upcoming.title}}"></a>
                     </div>
-
-                    
-                    <div class="movie-card">
-
-                        <figure class="poster-box card-banener">
-                            <img src="{% static 'images/slider-control.jpg' %}" alt="Puss in Boots: The Last Wish" class="img-cover">
-                        </figure>
-
-                        <h4 class="title">Puss in Boots: The Last Wish</h4>
-
-                        <div class="meta-list">
-                            <div class="meta-item">
-
-                                <span class="span">8.4</span>
-                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
-                            </div>
-
-                            <div class="card-badge">2022</div>
-                        </div>
-
-                        <a href="./detail.html" class="card-btn" title="Puss in Boots: The Last Wish"></a>
-                    </div>
-
-                    <div class="movie-card">
-
-                        <figure class="poster-box card-banener">
-                            <img src="{% static 'images/slider-control.jpg' %}" alt="Puss in Boots: The Last Wish" class="img-cover">
-                        </figure>
-
-                        <h4 class="title">Puss in Boots: The Last Wish</h4>
-
-                        <div class="meta-list">
-                            <div class="meta-item">
-
-                                <span class="span">8.4</span>
-                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
-                            </div>
-
-                            <div class="card-badge">2022</div>
-                        </div>
-
-                        <a href="./detail.html" class="card-btn" title="Puss in Boots: The Last Wish"></a>
-                    </div>
-
-                    <div class="movie-card">
-
-                        <figure class="poster-box card-banener">
-                            <img src="{% static 'images/slider-control.jpg' %}" alt="Puss in Boots: The Last Wish" class="img-cover">
-                        </figure>
-
-                        <h4 class="title">Puss in Boots: The Last Wish</h4>
-
-                        <div class="meta-list">
-                            <div class="meta-item">
-
-                                <span class="span">8.4</span>
-                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
-                            </div>
-
-                            <div class="card-badge">2022</div>
-                        </div>
-
-                        <a href="./detail.html" class="card-btn" title="Puss in Boots: The Last Wish"></a>
-                    </div>
-
-
-
-                    <div class="movie-card">
-
-                        <figure class="poster-box card-banener">
-                            <img src="{% static 'images/slider-control.jpg' %}" alt="Puss in Boots: The Last Wish" class="img-cover">
-                        </figure>
-
-                        <h4 class="title">Puss in Boots: The Last Wish</h4>
-
-                        <div class="meta-list">
-                            <div class="meta-item">
-
-                                <span class="span">8.4</span>
-                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
-                            </div>
-
-                            <div class="card-badge">2022</div>
-                        </div>
-
-                        <a href="./detail.html" class="card-btn" title="Puss in Boots: The Last Wish"></a>
-                    </div>
-
-
+                    {% endfor %}
 
 
                 </div>
             </div>
+
         </section>
 
 
