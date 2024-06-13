@@ -32,7 +32,7 @@
 
                         </p>
 
-                        <a href="./detail.html" class="btn">
+                        <a href="{% url 'detail' movie.id %}" class="btn">
                             <i class='bx bx-play-circle' aria-hidden="true" alt="play circle"></i>
 
                             <span class="span watch">Watch Now</span>
@@ -67,7 +67,7 @@
 
                         </p>
 
-                        <a href="./detail.html" class="btn">
+                        <a href="{% url 'detail' movie.id %}" class="btn">
                             <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
 
                             <span class="span">watch Now</span>
@@ -102,7 +102,7 @@
 
                         </p>
 
-                        <a href="./detail.html" class="btn">
+                        <a href="{% url 'detail' movie.id %}" class="btn">
                             <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
 
                             <span class="span">watch Now</span>
@@ -137,7 +137,7 @@
 
                         </p>
 
-                        <a href="./detail.html" class="btn">
+                        <a href="{% url 'detail' movie.id %}" class="btn">
                             <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
 
                             <span class="span">watch Now</span>
@@ -172,7 +172,7 @@
 
                         </p>
 
-                        <a href="./detail.html" class="btn">
+                        <a href="{% url 'detail' movie.id %}" class="btn">
                             <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
 
                             <span class="span">watch Now</span>
@@ -207,7 +207,7 @@
 
                         </p>
 
-                        <a href="./detail.html" class="btn">
+                        <a href="{% url 'detail' movie.id %}" class="btn">
                             <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
 
                             <span class="span">watch Now</span>
@@ -289,7 +289,7 @@
                             <div class="card-badge">{{popular.release_date|slice:"4"}}</div>
                         </div>
 
-                        <a href="./detail.html" class="card-btn" title="{{popular.title}}"></a>
+                        <a href="{% url 'detail' movie.id %}" class="card-btn" title="{{popular.title}}"></a>
                     </div>
                     {% endfor %}
             
@@ -326,7 +326,7 @@
                             <div class="card-badge">{{ top_rated.release_date|slice:"4" }}</div>
                         </div>
 
-                        <a href="./detail.html" class="card-btn" title="{{top_rated.title}}"></a>
+                        <a href="{% url 'detail' movie.id %}" class="card-btn" title="{{top_rated.title}}"></a>
                     </div>
                     {% endfor %}
 
@@ -366,7 +366,7 @@
                             <div class="card-badge">{{ upcoming.release_date|slice:"4" }}</div>
                         </div>
 
-                        <a href="./detail.html" class="card-btn" title="{{upcoming.title}}"></a>
+                        <a href="{% url 'detail' movie.id %}" class="card-btn" title="{{upcoming.title}}"></a>
                     </div>
                     {% endfor %}
 

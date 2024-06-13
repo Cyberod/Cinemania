@@ -12,11 +12,9 @@
                 <i class="bx bx-compass sidebar-title dropbtn"></i>
                 Explore <i class="bx bx-chevron-right"></i>
                 <div class="sidebar-menu">
-                    <a href="" class="sub-menu_1" menu-close>Action</a>
-                    <a href="" class="sub-menu_2" menu-close>Horror</a>
-                    <a href="" class="sub-menu_3" menu-close>Drama</a>
-                    <a href="" class="sub-menu_4" menu-close>Adventure</a>
-                    <a href="" class="sub-menu_5" menu-close>Sci-fi</a>
+                    {% for genre in movie_genres %}
+                        <a href="" class="sub-menu_1" menu-close>{{genre.name}}</a>
+                    {% endfor %}
                 </div>
             </a>
 
