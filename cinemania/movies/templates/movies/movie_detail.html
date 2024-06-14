@@ -9,61 +9,59 @@
 
         <!-- MOVIE DETAIL -->
         <div class="movie-detail">
-            <div class="backdrop-image background-image" style="background-image: url('./assets/images/slider-banner.jpg')"></div>
+            <div class="backdrop-image background-image" style="background-image: url('{{image_base_url}}{{movie.backdrop_path}}')"></div>
 
             <figure class="poster-box movie-poster">
-                <img src="./assets/images/slider-control.jpg" alt="Puss in Boots: The Last Wish" class="img-cover">
+                <img src="{{image_base_url}}{{movie.poster_path}}" alt="{{ movie.title }}" class="img-cover">
             </figure>
 
             <div class="detail-box">
 
                 <div class="detail-content">
-                    <h1 class="heading">Puss in Boots: The Last Wish</h1>
+                    <h1 class="heading">{{ movie.title }}</h1>
 
                     <div class="meta-list">
                         <div class="meta-item card-badge">
-                            <span class="span">8.4</span>
+                            <span class="span">{{movie.vote_average|floatformat:1}}</span>
                             <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
                         </div>
 
                         <div class="separator"></div>
 
-                        <div class="meta-item">162mins</div>
+                        <div class="meta-item">{{ movie.runtime }} mins</div>
 
                         <div class="separator"></div>
 
-                        <div class="meta-item">2022</div>
+                        <div class="meta-item">{{movie.release_date|slice:"4"}}</div>
 
                         <div class="meta-item card-badge">PG-13</div>
 
                     </div>
+                    {% for genre_list in movie.genres %}
+                    <p class="genre">{{ genre_list.name }}</p>
+                    {% endfor %}
 
-                    <p class="genre">Animation, Action, Adventure</p>
-
-                    <p class="overview">
-                        Puss in Boots dicovers that his passion for adventure has taken a toll:
-                        He has burned through eight of his lives, leaving him with only one life left.
-                        Puss sets out on an epic journey to find his last wish and restore his nine lives.
-                    </p>
+                    <p class="overview">{{ movie.overview }}</p>
 
                     <ul class="detail-list">
 
                         <div class="list-item">
                             <p class="list-name">Starring</p>
-
-                            <p>
-                                Letita Wright, Lupita Nyong'o, Danai Gurira, Winston Duke,
-                                Dominique Thorne, Tenoch Huerta Mejia, Angela Basset, 
-                                Florence Kasumba, Michaela Coel, Mabel Cadina
-                            </p>
+                            
+                            {% for cast in movie_casts %}
+                            {% if cast.known_for_department == "Acting" %}
+                            <p>{{ cast.name }}</p>
+                            {% endif %}
+                            {% endfor %}
                         </div>
 
                         <div class="list-item">
                             <p class="list-name">Directed By</p>
-
-                            <p>
-                                Ryan Coogler
-                            </p>
+                            {% for crew in movie_crew %}
+                            {% if crew.job == "Director" %}
+                            <p> {{ crew.name }} </p>
+                            {% endif %}
+                            {% endfor %}
                         </div>
                     </ul>
                 </div>
@@ -74,19 +72,20 @@
 
                 <div class="slider-list">
                     <div class="slider-inner">
-                        <div class="video-card"></div>
-                        <div class="video-card"></div>
-                        <div class="video-card"></div>
-                        <div class="video-card"></div>
-                        <div class="video-card"></div>
-                        <div class="video-card"></div>
+                        {% for trailer in trailers %}
+                        {% if trailer.type == "Trailer" %}                        
+                        <div class="video-card ">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailer.key}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
 
             </div>
         </div>
 
-
+{% endblock %}
 
 
 
@@ -95,7 +94,7 @@
 
         <!-- MOVIE LIST -->
 
-        <section class="movie-list" aria-label="upcoming movie">
+    <!--     <section class="movie-list" aria-label="upcoming movie">
 
             <div class="title-wrapper">
                 <h3 class="title-large">You May Also Like</h3>
@@ -222,7 +221,7 @@
 
 
     </article>
-
+ -->
 
 
     <!-- script Link -->
@@ -231,4 +230,3 @@
 
 
 
-{% endblock %}
