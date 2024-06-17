@@ -73,4 +73,29 @@ def movie_detail(request, movie_id):
 
     return render(request,'movies/movie_detail.html', context)
 
+def get_movies_by_genre(genre_id):
+    url = api_base_url + "/discover/movie/"
 
+    params = {
+        "api_key": api_key,
+        "language": "en-US",
+        "sort_by": "popularity.desc",
+        "with_genres": "with_genres"
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        return response.json().get('results', [])
+    return []
+
+
+def genre_movies(request, genre_id):
+    movies = get_movies_by_genre(genre_id)
+
+    context = {
+        "movie": movies,
+        "image_base_url": image_base_url
+    }
+
+    return render(request, 'movies/genre_movies.html', context)

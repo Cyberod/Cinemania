@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="sidebar" sidebar>
+<nav class="sidebar active" sidebar>
     <!-- add active -->
     <div class="sidebar-inner">
         <div class="sidebar-list">
@@ -13,7 +13,7 @@
                 Explore <i class="bx bx-chevron-right"></i>
                 <div class="sidebar-menu">
                     {% for genre in movie_genres %}
-                        <a href="" class="sub-menu_1" menu-close>{{genre.name}}</a>
+                        <a href="{url 'genre_movies' 'movie.id'}" class="sub-menu_1" menu-close>{{genre.name}}</a>
                     {% endfor %}
                 </div>
             </a>
