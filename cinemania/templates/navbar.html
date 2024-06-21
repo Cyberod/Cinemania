@@ -13,7 +13,7 @@
                 Explore <i class="bx bx-chevron-right"></i>
                 <div class="sidebar-menu">
                     {% for genre in movie_genres %}
-                        <a href="{url 'genre_movies' 'movie.id'}" class="sub-menu_1" menu-close>{{genre.name}}</a>
+                        <a href="{url 'genre_movies' genre.id}" class="sub-menu_1" menu-close>{{genre.name}}</a>
                     {% endfor %}
                 </div>
             </a>

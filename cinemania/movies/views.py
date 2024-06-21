@@ -32,6 +32,7 @@ def home(request):
     trending_movies = requests.get(trending_movie_url, params=params).json().get("results", [])
     movie_genres = requests.get(movie_genres_url, params=params).json().get("genres", [])
 
+
     context = { "popular_movies": popular_movies, 
                "image_base_url": image_base_url, 
                "now_playing_movies": now_playing_movies,
@@ -73,29 +74,19 @@ def movie_detail(request, movie_id):
 
     return render(request,'movies/movie_detail.html', context)
 
-def get_movies_by_genre(genre_id):
-    url = api_base_url + "/discover/movie/"
 
-    params = {
-        "api_key": api_key,
-        "language": "en-US",
-        "sort_by": "popularity.desc",
-        "with_genres": "with_genres"
-    }
-
-    response = requests.get(url, params=params)
-
-    if response.status_code == 200:
-        return response.json().get('results', [])
-    return []
 
 
 def genre_movies(request, genre_id):
-    movies = get_movies_by_genre(genre_id)
-
+    genre_movies_url = f"{api_base_url}discover/movie?with_genres={genre_id}&include_adult=false&include_video=false&language=en-US&page=1&year=2024&sort_by=popularity.desc&api_key={api_key}"
+    genre_movies = requests.get(genre_movies_url).json().get("results", [])
+    
     context = {
-        "movie": movies,
+        "genre_movies": genre_movies,
         "image_base_url": image_base_url
     }
 
     return render(request, 'movies/genre_movies.html', context)
+
+
+# 1:45pm
