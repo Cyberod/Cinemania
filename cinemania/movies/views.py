@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from django.conf import settings
 import requests
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
 api_base_url = settings.TMDB_API_BASE_URL
 image_base_url = settings.TMDB_IMAGE_BASE_URL
 api_key = settings.TMDB_API_KEY
+
+def fetch_from_tmdb(endpoint, params=None):
+    url = f"{api_base_url}/{endpoint}"
+    if not params:
+        params = {}
+    params['api_key'] = api_key
+    response = requests.get(url, params=params)
+    return response.json()
+
 
 def home(request):
 
@@ -78,14 +88,34 @@ def movie_detail(request, movie_id):
 
 
 def genre_movies(request, genre_id):
-    genre_movies_url = f"{api_base_url}discover/movie?with_genres={genre_id}&include_adult=false&include_video=false&language=en-US&page=1&year=2024&sort_by=popularity.desc&api_key={api_key}"
-    genre_movies = requests.get(genre_movies_url).json().get("results", [])
-    
-    context = {
-        "genre_movies": genre_movies,
-        "image_base_url": image_base_url
-    }
 
+    # TMDB endpoint for genres
+    genre_url = f'https://api.themoviedb.org/3/genre/movie/list?api_key={api_key}&language=en-US'
+
+    # Get the list of genres to find the specific genre
+    response = requests.get(genre_url)
+    genres = response.json().get('genres', [])
+    genre = next((g for g in genres if g['id'] == genre_id), None)
+    
+    if not genre:
+        # Handle the case where the genre is not found
+        return render(request, '404.html', status=404)
+    
+    # TMDB endpoint for movies in the specified genre
+    movies_url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}'
+    
+    # Get the list of movies in the specified genre
+    response = requests.get(movies_url)
+    movies = response.json().get('results', [])
+
+    # Create context with genre and movies
+    context = {
+        'image_base_url': image_base_url,
+        'genre': genre,
+        'movies': movies
+    }
+    
+    # Render the 'genre_movies.html' template with the context data
     return render(request, 'movies/genre_movies.html', context)
 
 
