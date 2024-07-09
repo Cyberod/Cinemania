@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.conf import settings
 import requests
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 
@@ -95,24 +97,25 @@ def genre_movies(request, genre_id):
     # Get the list of genres to find the specific genre
     response = requests.get(genre_url)
     genres = response.json().get('genres', [])
-    genre = next((g for g in genres if g['id'] == genre_id), None)
+    genre = next((g for g in genres if g['id'] == genre_id), None) # next: returns the first match or none if there is no matchafter iteration
     
     if not genre:
         # Handle the case where the genre is not found
         return render(request, '404.html', status=404)
     
     # TMDB endpoint for movies in the specified genre
-    movies_url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}'
+    movies_url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}&year=2024&sort_by=popularity.desc'
     
     # Get the list of movies in the specified genre
-    response = requests.get(movies_url)
-    movies = response.json().get('results', [])
+    movies_data = requests.get(movies_url).json()
+    movies = movies_data.get('results', [])
+   
 
     # Create context with genre and movies
     context = {
         'image_base_url': image_base_url,
         'genre': genre,
-        'movies': movies
+        'movies': movies,
     }
     
     # Render the 'genre_movies.html' template with the context data

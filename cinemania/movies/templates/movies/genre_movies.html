@@ -6,7 +6,7 @@
 <section class="movie-list" aria-label="upcoming movie">
 
     <div class="title-wrapper">
-        <h3 class="title-large">Results for {{genre.name}} Movies</h3>
+        <h3 class="title-large">All {{genre.name}} Movies</h3>
     </div>
 
 
@@ -35,6 +35,8 @@
                 <a href="{% url 'movie_detail' movie.id %}" class="card-btn" title="{{ movie.title }}"></a>
             </div>
             {% endfor %}
+
+            <!-- Pagination -->
 
 
         </div>
