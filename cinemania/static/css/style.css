@@ -25,9 +25,9 @@
 
   --fs-heading: 4rem;
   --fs-title-lg: 2.6rem;
-  --fs-title: 2rem;
+  --fs-title: 1.2rem;
   --fs-body: 1.5rem;
-  --fs-button: 1.5rem;
+  --fs-button: 1.1rem;
   --fs-label: 1.2rem;
 
   --weight-bold: 700;
@@ -472,6 +472,13 @@ header{
 .search-wrapper:focus-within .leading-icon { opacity: 0; }
 
 
+.menu-btn.active .menu,
+.menu-btn .close { display: none; }
+
+.menu-btn .menu,
+.menu-btn.active .close { display: block; }
+
+
 /*-----------------------------------*\
   #SIDEBAR
 \*-----------------------------------*/
@@ -480,22 +487,22 @@ header{
   background-color: var(--body-color);
   top: 96px;
   bottom: 0;
-  left: -340px;
-  max-width: 340px;
+  left: 0px;
+  max-width: 200px;
   width: 100%;
   overflow-y: overlay;
   z-index: 4;
   visibility: hidden;
   transition: var(--transition-long);
   border-block-start: 1px solid var(--container-color);
-
-}
-
-
-.sidebar.active {
-  transform: translateX(340px);
   visibility: visible;
 }
+
+
+/* .sidebar.active {
+  transform: translateX(340px);
+  visibility: visible;
+} */
 
 .sidebar-inner {
   display: grid;
@@ -529,9 +536,14 @@ header{
 .sidebar-link {
   color: var(--main-color);
   transition: var(--transition-short);
+  font-size: var(--fs-button);
 }
 
-.sidebar-link i { margin-right: 15px; }
+.sidebar-link i { 
+  margin-right: 8px;
+  padding-left: 4px;
+
+}
 
 
 .sidebar-link .dropdown {
@@ -563,6 +575,8 @@ header{
   top: 100%;
   left: 0;
   width: 100%;
+  font-size: var(--fs-button);
+  display: none;
 }
 
 .sidebar-menu > a {
@@ -625,7 +639,7 @@ header{
   border-block-start: 1px solid var(--container-color);
   padding-block-start: 80px;
   margin-block-start: 30px;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .copyright {
@@ -652,10 +666,19 @@ header{
   background-color: var(--surface);
   color: var(--on-surface);
   padding: 24px 20px 48px;
+/*   padding: auto; */
+  padding-left: 17%;
   height: calc(100vh - 96px);
   overflow-y: overlay;
   z-index: 1;
+
 }
+
+/* start from here */
+
+
+
+
 
 
 
@@ -664,7 +687,7 @@ header{
  */
 .banner {
   position: relative;
-  height: 700px;
+  height: 800px;
   border-radius: var(--radius-24);
   overflow: hidden;
 }
@@ -694,10 +717,21 @@ header{
   visibility: visible;
 }
 
-.banner-content {
+/* .banner-content {
   position: absolute;
   left: 24px;
   right: 24px;
+  bottom: 200px;
+  z-index: 1;
+  color: var(--context-color);
+  font-size: var(--fs-body);
+} */
+
+.banner-content {
+  position: absolute;
+  left: 24px;
+  right: auto;
+  max-width: 500px;
   bottom: 200px;
   z-index: 1;
   color: var(--context-color);
@@ -732,7 +766,7 @@ header{
 .slider-control {
   position: absolute;
   bottom: 20px;
-  left: 20px;
+  left: calc(100% - 400px);
   right: 0;
   border-radius: var(--radius-16) 0 0 var(--radius-16);
   user-select: none;
@@ -897,3 +931,15 @@ header{
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
+
+/* 
+ * responsive for larger than 575px screen
+*/
+
+ 
+
+
+/* 
+ * responsive for larger than 768px screen
+*/
+
