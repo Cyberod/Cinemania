@@ -301,7 +301,7 @@ body {
 }
 
 .slider-list {
-  margin-inline: -20px;
+  margin-inline: -24px;
   overflow-x: overlay;
   padding-block-end: 16px;
   margin-block-end: -16px;
@@ -372,7 +372,7 @@ body {
 }
 
 .logo {
-  font-size: var(--fs-title-lg);
+  font-size: var(--fs-body);
   font-weight: var(--weight-bold);
 }
 
@@ -385,7 +385,7 @@ body {
 
 header{
   position: relative;
-  padding-block: 24px;
+  padding-block: 14px;
   padding-inline: 36px;
   display: flex;
   justify-content: space-between;
@@ -485,7 +485,7 @@ header{
 .sidebar {
   position: fixed; /* absolute */
   background-color: var(--body-color);
-  top: 96px;
+  top: 76px;
   bottom: 0;
   left: 0px;
   max-width: 200px;
@@ -666,6 +666,7 @@ header{
   background-color: var(--surface);
   color: var(--on-surface);
   padding: 24px 20px 48px;
+  padding-inline: 24px;
 /*   padding: auto; */
   padding-left: 17%;
   height: calc(100vh - 96px);
@@ -687,10 +688,11 @@ header{
  */
 .banner {
   position: relative;
-  height: 800px;
+  height: 400px;
   border-radius: var(--radius-24);
   overflow: hidden;
 }
+
 
 .banner-slider .slider-item {
   position: absolute;
@@ -729,10 +731,11 @@ header{
 
 .banner-content {
   position: absolute;
-  left: 24px;
+  left: 50px;
   right: auto;
   max-width: 500px;
-  bottom: 200px;
+  bottom: 50%;
+  transform: translateY(50%);
   z-index: 1;
   color: var(--context-color);
   font-size: var(--fs-body);
