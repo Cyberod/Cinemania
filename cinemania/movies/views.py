@@ -73,7 +73,7 @@ def movie_detail(request, movie_id):
     }
 
     movie = requests.get(movie_detail_url, params=params).json()
-    movie_casts = requests.get(movie_casts_url, params=params).json().get("cast", [] )
+    movie_casts = requests.get(movie_casts_url, params=params).json().get("cast", [] )[:4]
     movie_crew = requests.get(movie_casts_url, params=params).json().get("crew", [] )
     trailers_data = requests.get(trailers_url, params=params).json().get("results", [])
 
