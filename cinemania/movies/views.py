@@ -88,6 +88,28 @@ def movie_detail(request, movie_id):
 
 
 
+def search_movies(request):
+    query = request.GET.get('query')
+    params = {
+        "api_key": api_key,
+        "language": "en-US",
+        "query": query,
+    }
+    
+    if query:
+        response = requests.get(api_base_url + "search/movie", params=params)
+        if response.status_code == 200:
+            data = response.json()
+            movies = data.get('results', [])
+            data = response.json()
+    
+    context = { 
+        'movies': movies, 
+        'image_base_url': image_base_url, 
+        'query': query 
+        }
+
+    return render(request, 'movies/search_movies.html', context)
 
 def genre_movies(request, genre_id):
 

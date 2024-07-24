@@ -277,18 +277,48 @@ body {
   transition: var(--transition-short);
 }
 
-.card-badge {
-  background-color: var(--container-color);
-  color: var(--text-color);
+.card-badge, .genre {
   font-size: var(--fs-label);
   font-weight: var(--weight-bold);
   padding-inline: 6px;
+}
+
+.card-badge {
+  background-color: var(--container-color);
+  color: var(--main-color);
   border-radius: var(--radius-16);
+}
+
+.rating {
+  color: var(--text-color);
+}
+
+.genre {
+  background-color: var(--body-color);
+  color: var(--main-color);
+  border-radius: var(--radius-8);
+}
+
+.genres_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  list-style: none;
+}
+
+.genre-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.3rem;
+  position: relative;
 }
 
 .poster-box {
   background-image: url('../images/poster-bg-icon.png');
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 3 / 4;
 }
 
 .poster-box,
@@ -393,7 +423,7 @@ body {
 
 header{
   position: relative;
-  padding-block: 14px;
+  padding-block: 18px;
   padding-inline: 36px;
   display: flex;
   justify-content: space-between;
@@ -448,7 +478,7 @@ header{
 
 .search-field {
   background-color: var(--container-color);
-  height: 48px;
+  height: 42px;
   line-height: 48px;
   padding-inline: 44px 16px;
   border-radius: var(--radius-16);
@@ -472,7 +502,7 @@ header{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 6px;
+  left: 12px;
   opacity: 0.5;
   transition: var(--transition-short);
 }
@@ -764,7 +794,7 @@ header{
 }
 
 
-.banner .genre { margin-block: 12px; }
+.banner { margin-block: 12px; }
 
 .banner-text {
   -webkit-line-clamp: 2;
@@ -871,7 +901,7 @@ header{
 
 .movie-detail .heading { margin-block: 24px 12px; }
 
-.movie-detail :is(.meta-list, .genre) { color: var(--context-color); }
+.movie-detail :is(.meta-list) { color: var(--context-color); }
 
 .movie-detail .genre { margin-block: 12px 16px; }
 
@@ -979,13 +1009,15 @@ header{
   */
 
   .slider-list { margin-inline: -24px; }
+  
 
   .trailer-slider {
     position: relative;
     width: 100%;
     max-width: 800px;
-    
+    margin-inline-start: 0px;  
   }
+
 
   .trailer-slider::-webkit-scrollbar-thumb {
     background-color: var(--container-color);

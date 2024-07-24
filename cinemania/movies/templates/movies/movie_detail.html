@@ -21,7 +21,7 @@
                     <h1 class="heading">{{ movie.title }}</h1>
 
                     <div class="meta-list">
-                        <div class="meta-item card-badge">
+                        <div class="meta-item card-badge rating">
                             <span class="span">{{movie.vote_average|floatformat:1}}</span>
                             <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
                         </div>
@@ -37,9 +37,19 @@
                         <div class="meta-item card-badge">PG-13</div>
 
                     </div>
-                    {% for genre_list in movie.genres %}
-                    <p class="genre">{{ genre_list.name }}</p>
+
+
+
+                    
+                    <div class="genres_list">
+                    {% for genre_list in movie.genres %}    
+                        <div class="genre-item">
+                            <p class="genre">{{ genre_list.name }}</p>
+                            <div class="separator"></div>
+                        </div>
                     {% endfor %}
+                    </div>
+                    
 
                     <p class="overview">{{ movie.overview }}</p>
 
@@ -71,7 +81,7 @@
                 </div>
 
                 <div class="slider-list trailer-slider">
-                    <div class="slider-inner">
+                    <div class="slider-inner trailer-inner">
                         {% for trailer in trailers %}
                         {% if trailer.type == "Trailer" %}                        
                         <div class="video-card ">
@@ -220,8 +230,6 @@
             </div>
         </section>
 
-
-    </article>
  -->
 
 
