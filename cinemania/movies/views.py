@@ -3,6 +3,7 @@ from django.conf import settings
 import requests
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -33,7 +34,6 @@ def home(request):
     now_playing_movie_url = api_base_url + "movie/now_playing?"
     upcoming_movie_url = api_base_url + "movie/upcoming?"
     top_rated_movie_url = api_base_url + "movie/top_rated?"
-    trending_movie_url = api_base_url + "trending/movie/week?"
     movie_genres_url = api_base_url + "genre/movie/list?"
     
     
@@ -41,7 +41,6 @@ def home(request):
     now_playing_movies = requests.get(now_playing_movie_url, params=params).json().get("results", [])
     upcoming_movies = requests.get(upcoming_movie_url, params=params).json().get("results", [])
     top_rated_movies = requests.get(top_rated_movie_url, params=params).json().get("results", [])
-    trending_movies = requests.get(trending_movie_url, params=params).json().get("results", [])
     movie_genres = requests.get(movie_genres_url, params=params).json().get("genres", [])
 
 
@@ -50,7 +49,6 @@ def home(request):
                "now_playing_movies": now_playing_movies,
                "upcoming_movies": upcoming_movies,
                "top_rated_movies": top_rated_movies,
-               "trending_movies": trending_movies,
                "movie_genres": movie_genres
                }
 
@@ -58,6 +56,40 @@ def home(request):
 
     return render(request, 'movies/index.html', context)
 
+def trending_movies(request):
+    trending_movies = []
+    page_number = int(request.GET.get('page', 1))
+    params = {
+    "api_key": api_key,
+    "language": "en-US",
+    "sort_by": "popularity.desc",
+    "page": page_number,
+    }
+    trending_movies_url = api_base_url + "trending/movie/week?"
+    response = requests.get(trending_movies_url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        trending_movies = data.get('results', [])
+        
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse(trending_movies)
+
+        total_pages = data.get('total_pages', 1)
+        context = {
+            'trending_movies': trending_movies,
+            'image_base_url': image_base_url,
+            'page_number': page_number,
+            'total_pages': total_pages,
+            'next_page': page_number + 1 if page_number < total_pages else None,
+        }
+        return render(request, 'movies/trending.html', context)
+    else:
+        # Handling the error gracefully
+        context = {
+            'error': 'Unable to fetch trending movies at the moment'
+        }
+        return render(request, 'movies/trending.html', context)
 
 
 def movie_detail(request, movie_id):
@@ -110,6 +142,8 @@ def search_movies(request):
         }
 
     return render(request, 'movies/search_movies.html', context)
+
+
 
 def genre_movies(request, genre_id):
 

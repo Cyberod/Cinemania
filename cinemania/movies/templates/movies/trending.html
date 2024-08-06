@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<article class="container">
+    <section class="movie-list" aria-label="upcoming movie">
+
+        <div class="title-wrapper">
+
+            <h3 class="title-large">Showing all Trending Movies</h3>
+        </div>
+
+        
+        <div class="slider-list movie-grid" id="movie-grd">
+            <div class="slider-inner">
+                {% for trending_movie in trending_movies %}
+                <div class="movie-card">
+
+                    <figure class="poster-box card-banener">
+                        <img src="{{image_base_url}}{{trending_movie.poster_path}}" alt="{{ trending_movie.title }}" class="img-cover">
+                    </figure>
+
+                    <h4 class="title">{{ trending_movie.title }}</h4>
+
+                    <div class="meta-list">
+                        <div class="meta-item">
+
+                            <span class="span">{{ trending_movie.vote_average|floatformat:1 }}</span>
+                            <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
+                        </div>
+
+                        <div class="card-badge">{{ trending_movie.release_date|slice:"4" }}</div>
+                    </div>
+
+                    <a href="{% url 'movie_detail' trending_movie.id %}" class="card-btn" title="Puss in Boots: The Last Wish"></a>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+
+
+    </section>
+
+    {% if page_number < total_pages %}
+    <button class="btn load-more" id="load-more-button" data-next-page="{{ next_page }}">Load More</button>
+    {% endif %}
+
+    
+</article>
+
+
+{% endblock %}
+
+<!-- script Link -->
+<script type="module" src="./assets/js/global.js"></script>
+<script type="module" src="./assets/js/movie-list.js"></script>
