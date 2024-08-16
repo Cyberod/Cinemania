@@ -347,7 +347,7 @@ body {
 .slider-list::-webkit-scrollbar-thumb { background-color: transparent; }
 
 .slider-list:is(:hover :focus-within)::-webkit-scrollbar-thumb {
-  background-color: var(--container-color);
+  background-color: var(--primary-variant);
 }
 
 .slider-list::-webkit-scrollbar-button {width: 20px;}
@@ -873,11 +873,11 @@ header{
 /*-----------------------------------*\
   #MOVIE GRID
 \*-----------------------------------*/
-.movie-grid {
+/* .movie-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
+} */
 
 
 

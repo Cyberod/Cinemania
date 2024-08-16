@@ -58,30 +58,37 @@ def home(request):
 
 def trending_movies(request):
     trending_movies = []
-    page_number = int(request.GET.get('page', 1))
+    page_number = request.GET.get('page', 1)
     params = {
     "api_key": api_key,
     "language": "en-US",
     "sort_by": "popularity.desc",
-    "page": page_number,
+    "page": f'{page_number}',
     }
     trending_movies_url = api_base_url + "trending/movie/week?"
     response = requests.get(trending_movies_url, params=params)
     if response.status_code == 200:
         data = response.json()
         trending_movies = data.get('results', [])
-        
+        total_pages = data['total_pages']
 
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse(trending_movies)
+            context = {
+                'page': int(page_number),
+                'total_pages': total_pages,
+                'movie': trending_movies,
+                'image_base_url': image_base_url,
+                'has_next': int(page_number) < total_pages,
+                'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
+            }
+            return JsonResponse(context)
 
-        total_pages = data.get('total_pages', 1)
+        
         context = {
             'trending_movies': trending_movies,
             'image_base_url': image_base_url,
-            'page_number': page_number,
-            'total_pages': total_pages,
-            'next_page': page_number + 1 if page_number < total_pages else None,
+            'has_next': int(page_number) < total_pages,
+            'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
         }
         return render(request, 'movies/trending.html', context)
     else:

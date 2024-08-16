@@ -12,12 +12,12 @@
         </div>
 
         
-        <div class="slider-list movie-grid" id="movie-grd">
-            <div class="slider-inner">
+        <div class="slider-list">
+            <div class="slider-inner" id="slider-inner">
                 {% for trending_movie in trending_movies %}
                 <div class="movie-card">
 
-                    <figure class="poster-box card-banener">
+                    <figure class="poster-box card-banner">
                         <img src="{{image_base_url}}{{trending_movie.poster_path}}" alt="{{ trending_movie.title }}" class="img-cover">
                     </figure>
 
@@ -33,7 +33,7 @@
                         <div class="card-badge">{{ trending_movie.release_date|slice:"4" }}</div>
                     </div>
 
-                    <a href="{% url 'movie_detail' trending_movie.id %}" class="card-btn" title="Puss in Boots: The Last Wish"></a>
+                    <a href="{% url 'movie_detail' trending_movie.id %}" class="card-btn" title="{{trending_movie.title}}"></a>
                 </div>
             {% endfor %}
 
@@ -42,17 +42,13 @@
 
 
     </section>
-
-    {% if page_number < total_pages %}
-    <button class="btn load-more" id="load-more-button" data-next-page="{{ next_page }}">Load More</button>
+    {% if has_next %}
+    <button class="btn load-more" id="load-more-button" data-next-page="{{next_page}}" >Load More</button>
     {% endif %}
 
     
 </article>
-
+<script type="module" src="{% static 'js/movie-list.js' %}"></script>
 
 {% endblock %}
 
-<!-- script Link -->
-<script type="module" src="./assets/js/global.js"></script>
-<script type="module" src="./assets/js/movie-list.js"></script>

@@ -1,34 +1,48 @@
-// static/js/trending.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const loadMoreButton = document.getElementById('load-more-button');
+    const image_base_url = 'https://image.tmdb.org/t/p/w500/'
     
+
     if (loadMoreButton) {
         loadMoreButton.addEventListener('click', async () => {
             const nextPage = loadMoreButton.dataset.nextPage;
+            console.log('Next Page to load:', nextPage);
+
             const response = await fetch(`?page=${nextPage}`, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-            
+
+            const movieArray = []
             if (response.ok) {
                 const data = await response.json();
-                const movies = data.movies;
-                const movieGrid = document.getElementById('movie-grid');
-                
-                movies.forEach(movie => {
+                data?.movie?.map(movie => movieArray.push(movie))
+                console.log('Data received:', movieArray);
+                const sliderInner = document.getElementById('slider-inner');
+
+                movieArray?.forEach(movie => {
                     const movieCard = document.createElement('div');
                     movieCard.classList.add('movie-card');
                     movieCard.innerHTML = `
-                        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-                        <h2>${movie.title}</h2>
+                        <figure class="poster-box card-banener">
+                            <img src="${image_base_url}${movie.poster_path}" alt="${movie.title}" class="img-cover">
+                        </figure>
+                        <h4 class="title">${movie.title}</h4>
+                        <div class="meta-list">
+                            <div class="meta-item">
+                                <span class="span">${movie.vote_average.toFixed(1)}</span>
+                                <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
+                            </div>
+                            <div class="card-badge">${movie.release_date.slice(0, 4)}</div>
+                        </div>
+                        <a href="{% url 'movie_detail' movie.id %}" class="card-btn" title="${movie.title}"></a>
                     `;
-                    movieGrid.appendChild(movieCard);
+                    sliderInner.appendChild(movieCard);
                 });
-                
-                if (data.has_next) {
-                    loadMoreButton.dataset.nextPage = data.next_page_number;
+
+                if (data.page < data.total_pages) {
+                    loadMoreButton.dataset.nextPage = parseInt(nextPage) + 1;
                 } else {
                     loadMoreButton.remove();
                 }
@@ -38,3 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+
+
+
+
