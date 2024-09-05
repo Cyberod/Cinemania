@@ -256,6 +256,8 @@ body {
   align-items: center;
 }
 
+
+
 .meta-item {
   display: flex;
   align-items: center;
@@ -357,6 +359,8 @@ body {
   display:flex; 
   gap: 16px;
 }
+
+
 
 .slider-list .slider-inner::before,
 .slider-list .slider-inner::after {
@@ -713,12 +717,22 @@ header{
 
 }
 
+.list-container {
+  position: relative;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  padding: 24px 20px 48px;
+  padding-inline: 24px;
+/*   padding: auto; */
+  /* padding-left: 17%; */
+  height: calc(100vh - 96px);
+  width: 100%;
+  overflow-y: overlay;
+  z-index: 1;
+
+}
+
 /* start from here */
-
-
-
-
-
 
 
 /**
@@ -863,6 +877,10 @@ header{
   margin-block: 8px 4px;
 }
 
+
+
+
+
 .movie-card .meta-list { justify-content: space-between; }
 
 .movie-card .card-btn {
@@ -873,11 +891,21 @@ header{
 /*-----------------------------------*\
   #MOVIE GRID
 \*-----------------------------------*/
-/* .movie-grid {
+.movie-grid .movie-inner {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-} */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Space between each movie card */
+  padding: 12px; /* Padding around the grid */
+  box-sizing: border-box;
+}
+.movie-grid .movie-card {
+  flex: 1; /* Allow cards to grow and take available space */
+  min-width: 200px; /* Set a minimum width for the cards */
+  max-width: 300px; /* Set a maximum width for the cards */
+  margin-bottom: 20px; /* Add some spacing between rows */
+}
+
+
 
 
 

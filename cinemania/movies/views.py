@@ -57,6 +57,7 @@ def home(request):
     return render(request, 'movies/index.html', context)
 
 def trending_movies(request):
+
     trending_movies = []
     page_number = request.GET.get('page', 1)
     params = {
@@ -69,6 +70,7 @@ def trending_movies(request):
     response = requests.get(trending_movies_url, params=params)
     if response.status_code == 200:
         data = response.json()
+        print(page_number)
         trending_movies = data.get('results', [])
         total_pages = data['total_pages']
 
@@ -85,11 +87,12 @@ def trending_movies(request):
 
         
         context = {
-            'trending_movies': trending_movies,
+            'movies': trending_movies,
             'image_base_url': image_base_url,
             'has_next': int(page_number) < total_pages,
             'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
         }
+        
         return render(request, 'movies/trending.html', context)
     else:
         # Handling the error gracefully
@@ -104,6 +107,7 @@ def movie_detail(request, movie_id):
     movie_detail_url = api_base_url + "movie/" + str(movie_id) + "?"
     movie_casts_url = api_base_url + "movie/" + str(movie_id) + "/casts?"
     trailers_url = api_base_url + "movie/" + str(movie_id) + "/videos?"
+    recommendations_url = api_base_url + "movie/" + str(movie_id) + "/recommendations?"
 
     params = {
     "api_key": api_key,
@@ -115,12 +119,14 @@ def movie_detail(request, movie_id):
     movie_casts = requests.get(movie_casts_url, params=params).json().get("cast", [] )[:4]
     movie_crew = requests.get(movie_casts_url, params=params).json().get("crew", [] )
     trailers_data = requests.get(trailers_url, params=params).json().get("results", [])
+    recommendations = requests.get(recommendations_url, params=params).json().get("results", [])
 
     context = { 
         "movie": movie, "image_base_url": image_base_url,
         "movie_casts": movie_casts,
         "movie_crew": movie_crew,
-        "trailers": trailers_data
+        "trailers": trailers_data,
+        "recommendations": recommendations,
         }
 
     return render(request,'movies/movie_detail.html', context)

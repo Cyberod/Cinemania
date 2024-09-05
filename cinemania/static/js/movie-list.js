@@ -1,6 +1,8 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const loadMoreButton = document.getElementById('load-more-button');
     const image_base_url = 'https://image.tmdb.org/t/p/w500/'
+    const urlPattern = loadMoreButton ? loadMoreButton.dataset.urlPattern : '';
     
 
     if (loadMoreButton) {
@@ -14,18 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            const movieArray = []
+            /* const movieArray = [] */
             if (response.ok) {
                 const data = await response.json();
-                data?.movie?.map(movie => movieArray.push(movie))
+                const movieArray = data.movie || [];
+                data?.movie?.map(movie => movieArray.push(movie));
                 console.log('Data received:', movieArray);
-                const sliderInner = document.getElementById('slider-inner');
+                const sliderInner = document.getElementById('slider-inner'); /* you can try movie-grid here instead */
 
                 movieArray?.forEach(movie => {
                     const movieCard = document.createElement('div');
                     movieCard.classList.add('movie-card');
+                    const movieDetailUrl = urlPattern.replace('0', movie.id);
                     movieCard.innerHTML = `
-                        <figure class="poster-box card-banener">
+                        <figure class="poster-box card-banner">
                             <img src="${image_base_url}${movie.poster_path}" alt="${movie.title}" class="img-cover">
                         </figure>
                         <h4 class="title">${movie.title}</h4>
@@ -36,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="card-badge">${movie.release_date.slice(0, 4)}</div>
                         </div>
-                        <a href="{% url 'movie_detail' movie.id %}" class="card-btn" title="${movie.title}"></a>
+                        <a href="${movieDetailUrl}" class="card-btn" title="${movie.title}"></a>
                     `;
                     sliderInner.appendChild(movieCard);
                 });
@@ -52,9 +56,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-
-
-
-
-
