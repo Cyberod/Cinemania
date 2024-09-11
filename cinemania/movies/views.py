@@ -70,7 +70,6 @@ def trending_movies(request):
     response = requests.get(trending_movies_url, params=params)
     if response.status_code == 200:
         data = response.json()
-        print(page_number)
         trending_movies = data.get('results', [])
         total_pages = data['total_pages']
 
@@ -162,33 +161,66 @@ def genre_movies(request, genre_id):
 
     # TMDB endpoint for genres
     genre_url = f'https://api.themoviedb.org/3/genre/movie/list?api_key={api_key}&language=en-US'
+    page_number = request.GET.get('page', 1)
+    params = {
+    "api_key": api_key,
+    "language": "en-US",
+    "sort_by": "popularity.desc",
+    "page": f'{page_number}', 
+    "with_genres": f'{genre_id}',
+    "year": 2024   
+    }
 
     # Get the list of genres to find the specific genre
     response = requests.get(genre_url)
-    genres = response.json().get('genres', [])
-    genre = next((g for g in genres if g['id'] == genre_id), None) # next: returns the first match or none if there is no matchafter iteration
-    
-    if not genre:
-        # Handle the case where the genre is not found
-        return render(request, '404.html', status=404)
-    
-    # TMDB endpoint for movies in the specified genre
-    movies_url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}&year=2024&sort_by=popularity.desc'
-    
-    # Get the list of movies in the specified genre
-    movies_data = requests.get(movies_url).json()
-    movies = movies_data.get('results', [])
-   
+    if response.status_code == 200:
+        genres = response.json().get('genres', [])
+        genre = next((g for g in genres if g['id'] == genre_id), None) # next: returns the first match or none if there is no matchafter iteration
 
-    # Create context with genre and movies
-    context = {
-        'image_base_url': image_base_url,
-        'genre': genre,
-        'movies': movies,
-    }
-    
-    # Render the 'genre_movies.html' template with the context data
-    return render(request, 'movies/genre_movies.html', context)
+        # TMDB endpoint for movies in the specified genre
+        # movies_url = f'https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres={genre_id}&year=2024&sort_by=popularity.desc'
+        
+        movies_url = api_base_url + "discover/movie?"
 
 
-# 1:45pm
+        # Get the list of movies in the specified genre
+        movies_data = requests.get(movies_url, params=params).json()
+        total_pages = movies_data.get('total_pages', 1)
+        movies = movies_data.get('results', [])
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        
+            # Create context with genre and movies
+            context = {
+                'movie': movies,
+                'image_base_url': image_base_url,
+                'page': int(page_number),
+                'total_pages': total_pages,
+                'has_next': int(page_number) < total_pages,
+                'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
+
+            }
+            
+            # Return Json reaponae of the context data
+            return JsonResponse(context)
+        
+
+        # Create context with genre and movies
+        context = {
+            'image_base_url': image_base_url,
+            'genre': genre,
+            'movies': movies,
+            'has_next': int(page_number) < total_pages,
+            'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
+        }
+        
+        # Render the 'genre_movies.html' template with the context data
+        return render(request, 'movies/genre_movies.html', context)
+    
+    else:
+        # Handling the case where there are no genres found
+        context = {
+            'error': f'unable to fectch {genre.name} movies at the moment'
+        }
+        return render(request, 'movies/genr_movies.html', context)
+

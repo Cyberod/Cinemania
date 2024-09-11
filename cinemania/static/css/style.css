@@ -618,7 +618,7 @@ header{
   left: 0;
   width: 100%;
   font-size: var(--fs-button);
-  display: none;
+  /* display: none; */
 }
 
 .sidebar-menu > a {

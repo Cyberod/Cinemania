@@ -3,47 +3,52 @@
 {% load static %}
 {% block content %}
 
-<section class="movie-list" aria-label="upcoming movie">
+<article class="container">
+    <section class="movie-list" aria-label="upcoming movie">
 
-    <div class="title-wrapper">
-        <h3 class="title-large">All {{genre.name}} Movies</h3>
-    </div>
+        <div class="title-wrapper">
+            <h3 class="title-large">All {{genre.name}} Movies</h3>
+        </div>
 
 
-    <div class="slider-list">
-        <div class="slider-inner">
+        <div class="slider-list movie-grid" >
+            <div class="slider-inner movie-inner" id="slider-inner">
 
-            {% for movie in movies %}
-            <div class="movie-card">
+                {% for movie in movies %}
+                <div class="movie-card list-card">
 
-                <figure class="poster-box card-banener">
-                    <img src="{{image_base_url}}{{movie.poster_path}}" alt="Puss in Boots: The Last Wish" class="img-cover">
-                </figure>
+                    <figure class="poster-box card-banner">
+                        <img src="{{image_base_url}}{{movie.poster_path}}" alt="{{movie.title}}" class="img-cover">
+                    </figure>
 
-                <h4 class="title">{{movie.title}}</h4>
+                    <h4 class="title">{{movie.title}}</h4>
 
-                <div class="meta-list">
-                    <div class="meta-item">
+                    <div class="meta-list">
+                        <div class="meta-item">
 
-                        <span class="span">{{movie.vote_average|floatformat:1}}</span>
-                        <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
+                            <span class="span">{{movie.vote_average|floatformat:1}}</span>
+                            <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
+                        </div>
+
+                        <div class="card-badge">{{movie.release_date|slice:"4"}}</div>
                     </div>
 
-                    <div class="card-badge">{{movie.release_date|slice:"4"}}</div>
+                    <a href="{% url 'movie_detail' movie.id %}" class="card-btn" title="{{ movie.title }}"></a>
                 </div>
+                {% endfor %}
 
-                <a href="{% url 'movie_detail' movie.id %}" class="card-btn" title="{{ movie.title }}"></a>
+                <!-- Pagination -->
+
+
             </div>
-            {% endfor %}
-
-            <!-- Pagination -->
-
-
         </div>
-    </div>
-</section>
+    </section>
+    {% if has_next %}
+    <button class="btn load-more" id="load-more-button" data-next-page="{{next_page}}" data-url-pattern="{% url 'movie_detail' 0 %}">Load More</button>
+    {% endif %}
+
+</article>
 {% endblock %}
 
 <!-- script Link -->
-<script type="module" src="./assets/js/global.js"></script>
-<script type="module" src="./assets/js/detail.js"></script>
+<script type="module" src="{% static 'js/movie-list.js' %}"></script>

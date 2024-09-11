@@ -103,8 +103,8 @@
             </div>
 
 
-            <div class="slider-list">
-                <div class="slider-inner">
+            <div class="slider-list movie-grid">
+                <div class="slider-inner movie-inner">
                 {% for recommendation in recommendations %}
                     <div class="movie-card">
 
@@ -116,7 +116,7 @@
                         <div class="meta-list">
                             <div class="meta-item">
 
-                                <span class="span">{{recomendation.vote_average|floatformat:1}}</span>
+                                <span class="span">{{recommendation.vote_average|floatformat:1}}</span>
                                 <i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i>
                             </div>
 
