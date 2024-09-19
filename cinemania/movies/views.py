@@ -4,6 +4,7 @@ import requests
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+import json
 
 
 # Create your views here.
@@ -11,6 +12,12 @@ from django.http import JsonResponse
 api_base_url = settings.TMDB_API_BASE_URL
 image_base_url = settings.TMDB_IMAGE_BASE_URL
 api_key = settings.TMDB_API_KEY
+
+DESIRED_LANGUAGES = [
+                        'Igbo',
+                        'Yoruba',
+                        'Hausa',
+]
 
 def fetch_from_tmdb(endpoint, params=None):
     url = f"{api_base_url}/{endpoint}"
@@ -20,12 +27,10 @@ def fetch_from_tmdb(endpoint, params=None):
     response = requests.get(url, params=params)
     return response.json()
 
-
 def home(request):
 
     params = {
     "api_key": api_key,
-    "language": "en-US",
     "sort_by": "popularity.desc",
     }
 
@@ -35,6 +40,7 @@ def home(request):
     upcoming_movie_url = api_base_url + "movie/upcoming?"
     top_rated_movie_url = api_base_url + "movie/top_rated?"
     movie_genres_url = api_base_url + "genre/movie/list?"
+    languages_url = api_base_url + "configuration/languages?"
     
     
     popular_movies = requests.get(popular_movie_url, params=params).json().get("results", [])
@@ -42,14 +48,23 @@ def home(request):
     upcoming_movies = requests.get(upcoming_movie_url, params=params).json().get("results", [])
     top_rated_movies = requests.get(top_rated_movie_url, params=params).json().get("results", [])
     movie_genres = requests.get(movie_genres_url, params=params).json().get("genres", [])
+    languages = requests.get(languages_url, params=params).json()
+    #print('languages:', languages)
 
+    nig_language = DESIRED_LANGUAGES
+    #print('LANGUGES:', nig_language)
+    #language = next((lang for lang in languages if lang['english_name'] in nig_language), None)
+    #print('language:', language)
 
-    context = { "popular_movies": popular_movies, 
+    context = { 
+               "popular_movies": popular_movies, 
                "image_base_url": image_base_url, 
                "now_playing_movies": now_playing_movies,
                "upcoming_movies": upcoming_movies,
                "top_rated_movies": top_rated_movies,
-               "movie_genres": movie_genres
+               "movie_genres": movie_genres,
+               "nig_language": nig_language,
+               "languages": languages,
                }
 
 
@@ -100,7 +115,6 @@ def trending_movies(request):
         }
         return render(request, 'movies/trending.html', context)
 
-
 def movie_detail(request, movie_id):
     # https://developers.themoviedb.org/3/movies/get-movie-details
     movie_detail_url = api_base_url + "movie/" + str(movie_id) + "?"
@@ -130,9 +144,7 @@ def movie_detail(request, movie_id):
 
     return render(request,'movies/movie_detail.html', context)
 
-
-
-def search_movies(request):
+""" def search_movies(request):
     query = request.GET.get('query')
     params = {
         "api_key": api_key,
@@ -153,9 +165,24 @@ def search_movies(request):
         'query': query 
         }
 
-    return render(request, 'movies/search_movies.html', context)
+    return render(request, 'movies/search_movies.html', context) """
 
+def proxy_search(request):
+    query = request.GET.get('query')
+    params = {
+        "api_key": api_key,
+        "language": "en-US",
+        "query": query,
+    }
 
+    if query:
+        tmdb_url = api_base_url + "search/movie"
+        response = requests.get(tmdb_url, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            return JsonResponse(data)
+        return JsonResponse({'error': 'Failed to fetch data from TMDB'}, status=500)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def genre_movies(request, genre_id):
 
@@ -222,5 +249,64 @@ def genre_movies(request, genre_id):
         context = {
             'error': f'unable to fectch {genre.name} movies at the moment'
         }
-        return render(request, 'movies/genr_movies.html', context)
+        return render(request, 'movies/genre_movies.html', context)
+       
 
+def movie_language(request, language_id):
+    language_url = f'{api_base_url}configuration/languages?api_key={api_key}'
+    page_number = request.GET.get('page', 1)
+
+    # Get the list of languages
+    response = requests.get(language_url)
+    if response.status_code == 200:
+        all_languages = response.json()
+        language = next((l for l in all_languages if l['iso_639_1'] == language_id), None)
+        print('language:', language)
+        print('language_id:', language_id)
+        
+        if language:
+            params = {
+                "api_key": api_key,
+                "sort_by": "popularity.desc",
+                "page": f'{page_number}',
+                "with_original_language": f'{language_id}',
+            }
+            
+            movies_url = f"{api_base_url}discover/movie"
+            movies_data = requests.get(movies_url, params=params).json()
+            print('movies_url:', movies_url)
+            print('movies_data:', movies_data)
+            movies = movies_data.get('results', [])
+            
+            if movies:
+                total_pages = movies_data.get('total_pages', 1)
+                
+                context = {
+                    'image_base_url': image_base_url,
+                    'language': language,
+                    'movies': movies,
+                    'page': int(page_number),
+                    'total_pages': total_pages,
+                    'has_next': int(page_number) < total_pages,
+                    'next_page': int(page_number) + 1 if int(page_number) < total_pages else None,
+                }
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    context = {
+                        'movie': movies,
+                        'image_base_url': image_base_url,
+                        'page': int(page_number),
+                        'total_pages': total_pages,
+                        'has_next': int(page_number) < total_pages,
+                        'next_page': int(page_number) + 1 if int(page_number) < total_pages else None,
+                    }
+                    return JsonResponse(context)
+
+                return render(request, 'movies/language_movies.html', context)
+            else:
+                context = {'error': f'Unable to fetch movies for {language["english_name"]}'}
+        else:
+            context = {'error': f'Language with ID {language_id} not found'}
+    else:
+        context = {'error': 'Unable to fetch language data'}
+    
+    return render(request, 'movies/language_movies.html', context)

@@ -38,9 +38,10 @@
             <i class='bx bxs-camera-movie'></i>Cine<span class="logo-name">Mania</span>
         </a>
         <!-- Search Box -->
-        <form method="GET" action="{% url 'search_movies' %}" class="search-box" search-box>
-            <div class="search-wrapper" search-wrapper> <!-- add searching class for rotation -->
-                <input type="text" name="query" aria-label="search movies" placeholder="Search any movies..." class="search-field" autocomplete="off" search-field>
+        <form method="GET" class="search-box" search-box>
+            <div class="search-wrapper" search-wrapper> <!-- add searching class for rotation && action=""-->
+                <input type="text" name="query" aria-label="search movies" placeholder="Search any movies..." 
+                class="search-field" id="searchQuery" autocomplete="off" search-field fetchMovies()>
                 
                 <i class="bx bx-search leading-icon" alt="search "></i>
 
