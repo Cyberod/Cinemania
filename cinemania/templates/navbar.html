@@ -8,43 +8,42 @@
             </a>
 
 
-            <a href="" class="sidebar-link dropdown">
-                <i class="bx bx-compass sidebar-title dropbtn"></i>
-                Explore <i class="bx bx-chevron-right"></i>
+            <div class="sidebar-link dropdown">
+                <i class="bx bx-compass sidebar-title"></i>
+                Explore <i class="bx bx-chevron-down"></i>
                 <div class="sidebar-menu">
                     {% for genre in movie_genres %}
-                        <a href="{% url 'genre_movies' genre.id %}" class="sub-menu_1" menu-close>{{genre.name}}</a>
+                        <a href="{% url 'genre_movies' genre.id %}" menu-close>{{genre.name}}</a>
                     {% endfor %}
                 </div>
-            </a>
+            </div>
 
             <a href="{% url 'trending_movies' %}" class="sidebar-link">
                 <i class='bx bxs-hot sidebar-title'></i>Trending
             </a>
 
-            <a href="" class="sidebar-link">
+<!--             <a href="" class="sidebar-link">
                 <i class="bx bx-heart-circle sidebar-title"></i>Favourites
-            </a>
+            </a> -->
+
+            <div class="sidebar-link dropdown"></i>
+                <i class='bx bx-world sidebar-title'></i>
+                Language <i class="bx bx-chevron-down"></i>
+                <div class="sidebar-menu">
+                    {% for lang in languages %}
+                    {% if lang.english_name in nig_language %}
+                        <a href="{% url 'movie_language' lang.iso_639_1 %}" menu-close>{{lang.english_name}}</a>
+                    {% endif %}    
+                    {% endfor %}
+                </div>
+            </div>
 
         </div>
         
-        <div class="sidebar-list lang">
-            <a href="#" class="sidebar-link">
-                <p class="sidebar-title sub-btn">Language<i class="bx bxs-chevron-right dropdown"></i></p>
-            {% for lang in languages %}
-            {% if lang.english_name in nig_language %}
-            <div class="sidebar-menu">
-                <a href="{% url 'movie_language' lang.iso_639_1 %}" class="sub-menu" menu-close>{{lang.english_name}}</a>
-            </div>
-            {% endif %}
-            {% endfor %}
-
-            </a>
-        </div>
 
         <div class="sidebar-footer">
-            <p class="copyright">Cinemania Copyright 2024 <a href="https://github.com/Cyberod/Cinemania">Jonaz</a></p>
+            <a class="copyright"><a href="https://github.com/Cyberod/Cinemania">Cinemania Copyright 2024 Jonaz</a></p>
 
-            <img src="{% static 'images/tmdb-logo.svg' %}" width="130" height="17" alt="tmdb-logo">
+            <img src="{% static 'images/tmdb-logo.svg' %}" width="80" height="20" alt="tmdb-logo">
         </div>
 </nav>
