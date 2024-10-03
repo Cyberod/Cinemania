@@ -1,38 +1,37 @@
 {% extends 'base.html' %}
-
+{% load genre_filters %}
 {% load static %}
+
 {% block content %}
     <article class="container" page-content>
         <!-- BANNER -->
-
+        
         <section class="banner" aria-label="popular movies">
 
             <div class="banner-slider">
-
-                <div class="slider-item active" slider-item>
-                    <img src="{% static 'images/slider-banner.jpg' %}" alt="Puss in Boots: The Last wish" class="img-cover" loading="eager">
+                {% for movie in now_playing_movies %}
+                <div class="slider-item {% if forloop.first %} active {% endif %}" data-movie-id="{{ movie.id }}" slider-item>
+                    <img src="{{image_base_url }}{{ movie.backdrop_path }}" alt="{{ movie.title }}" class="img-cover" loading="{% if forloop.first %}eager {% endif %}lazy">
 
                     <div class="banner-content">
 
-                        <h2 class="heading heading-1">
-                            Puss in Boots: The last wish
-                        </h2>
+                        <h2 class="heading heading-1">{{ movie.title }}</h2>
 
                         <div class="meta-list">
-                            <div class="meta-item">2022</div>
+                            <div class="meta-item">{{ movie.release_date|slice:":4" }}</div>
 
-                            <div class="meta-item card-badge">7.5<i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i></div>
+                            <div class="meta-item card-badge">{{ movie.vote_average|floatformat:1 }}<i class='bx bxs-star' style='color:#ffb43a' width="20" height="20" loading="lazy" alt="rating"></i></div>
                         </div>
-                        <p class="genre">Animation, Action, Adventure</p>
+                        <div class="genre-container">
+                            {% for genre_id in movie.genre_ids %}
+                            <span class="genre">{{ genre_dict|get_item:genre_id }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        
+                        <p class="banner-text">{{ movie.overview }}</p>
 
-                        <p class="banner-text">
-                            Puss in Boots dicovers that his passion for adventure has taken a toll:
-                            He has burned through eight of his lives, leaving him with only one life left.
-                            Puss sets out on an epic journey to find his last wish and restore his nine lives.
-
-                        </p>
-
-                        <a href="" class="btn">
+                        <a href="{% url 'movie_detail' movie.id %}" class="btn">
                             <i class='bx bx-play-circle' aria-hidden="true" alt="play circle"></i>
 
                             <span class="span watch">Watch Now</span>
@@ -40,217 +39,18 @@
 
                     </div>
 
-
                 </div>
-
-               
-                <div class="slider-item" slider-item>
-                    <img src="{% static 'images/slider-banner.jpg' %}" alt="Puss in Boots: The Last wish" class="img-cover" loading="eager">
-
-                    <div class="banner-content">
-
-                        <h2 class="heading">
-                            Puss in Boots: The last wish
-                        </h2>
-
-                        <div class="meta-list">
-                            <div class="meta-item">2022</div>
-
-                            <div class="meta-item card-badge">7.5</div>
-                        </div>
-                        <p class="genre">Animation, Action, Adventure</p>
-
-                        <p class="banner-text">
-                            Puss in Boots dicovers that his passion for adventure has taken a toll:
-                            He has burned through eight of his lives, leaving him with only one life left.
-                            Puss sets out on an epic journey to find his last wish and restore his nine lives.
-
-                        </p>
-
-                        <a href="" class="btn">
-                            <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
-
-                            <span class="span">watch Now</span>
-                        </a>
-
-                    </div>
-
-
-                </div>
-                
-                
-                <div class="slider-item" slider-item>
-                    <img src="{% static 'images/slider-banner.jpg' %}" alt="Puss in Boots: The Last wish" class="img-cover" loading="eager">
-
-                    <div class="banner-content">
-
-                        <h2 class="heading">
-                            Puss in Boots: The last wish
-                        </h2>
-
-                        <div class="meta-list">
-                            <div class="meta-item">2022</div>
-
-                            <div class="meta-item card-badge">7.5</div>
-                        </div>
-                        <p class="genre">Animation, Action, Adventure</p>
-
-                        <p class="banner-text">
-                            Puss in Boots dicovers that his passion for adventure has taken a toll:
-                            He has burned through eight of his lives, leaving him with only one life left.
-                            Puss sets out on an epic journey to find his last wish and restore his nine lives.
-
-                        </p>
-
-                        <a href="" class="btn">
-                            <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
-
-                            <span class="span">watch Now</span>
-                        </a>
-
-                    </div>
-
-
-                </div>
-
-                
-                <div class="slider-item" slider-item>
-                    <img src="{% static 'images/slider-banner.jpg' %}" alt="Puss in Boots: The Last wish" class="img-cover" loading="eager">
-
-                    <div class="banner-content">
-
-                        <h2 class="heading">
-                            Puss in Boots: The last wish
-                        </h2>
-
-                        <div class="meta-list">
-                            <div class="meta-item">2022</div>
-
-                            <div class="meta-item card-badge">7.5</div>
-                        </div>
-                        <p class="genre">Animation, Action, Adventure</p>
-
-                        <p class="banner-text">
-                            Puss in Boots dicovers that his passion for adventure has taken a toll:
-                            He has burned through eight of his lives, leaving him with only one life left.
-                            Puss sets out on an epic journey to find his last wish and restore his nine lives.
-
-                        </p>
-
-                        <a href="" class="btn">
-                            <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
-
-                            <span class="span">watch Now</span>
-                        </a>
-
-                    </div>
-
-
-                </div>
-
-                
-                <div class="slider-item" slider-item>
-                    <img src="{% static 'images/slider-banner.jpg' %}" alt="Puss in Boots: The Last wish" class="img-cover" loading="eager">
-
-                    <div class="banner-content">
-
-                        <h2 class="heading">
-                            Puss in Boots: The last wish
-                        </h2>
-
-                        <div class="meta-list">
-                            <div class="meta-item">2022</div>
-
-                            <div class="meta-item card-badge">7.5</div>
-                        </div>
-                        <p class="genre">Animation, Action, Adventure</p>
-
-                        <p class="banner-text">
-                            Puss in Boots dicovers that his passion for adventure has taken a toll:
-                            He has burned through eight of his lives, leaving him with only one life left.
-                            Puss sets out on an epic journey to find his last wish and restore his nine lives.
-
-                        </p>
-
-                        <a href="" class="btn">
-                            <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
-
-                            <span class="span">watch Now</span>
-                        </a>
-
-                    </div>
-
-
-                </div>
-
-                
-                <div class="slider-item" slider-item>
-                    <img src="{% static 'images/slider-banner.jpg' %}" alt="Puss in Boots: The Last wish" class="img-cover" loading="eager">
-
-                    <div class="banner-content">
-
-                        <h2 class="heading">
-                            Puss in Boots: The last wish
-                        </h2>
-
-                        <div class="meta-list">
-                            <div class="meta-item">2022</div>
-
-                            <div class="meta-item card-badge">7.5</div>
-                        </div>
-                        <p class="genre">Animation, Action, Adventure</p>
-
-                        <p class="banner-text">
-                            Puss in Boots dicovers that his passion for adventure has taken a toll:
-                            He has burned through eight of his lives, leaving him with only one life left.
-                            Puss sets out on an epic journey to find his last wish and restore his nine lives.
-
-                        </p>
-
-                        <a href="" class="btn">
-                            <img src="{% static 'images/play_circle.png' %}" width="24" height="24" aria-hidden="true" alt="play circle">
-
-                            <span class="span">watch Now</span>
-                        </a>
-
-                    </div>
-
-
-                </div>
-
+                {% endfor %}
 
             </div>
 
             <div class="slider-control">
                 <div class="control-inner">
-
-                    <button class="poster-box slider-item active">
-                        <img src="" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
+                    {% for movie in now_playing_movies %}
+                    <button class="poster-box slider-item {% if forloop.first %} active {% endif %}" data-movie-id="{{ movie.id }}" slider-item>
+                        <img src="{{ image_base_url }}{{ movie.poster_path }}" alt="{{ movie.title }}" loading="lazy" draggable="false" class="img-cover">
                     </button>
-                    
-                    <button class="poster-box slider-item">
-                        <img src="" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
-                    </button>
-
-                    <button class="poster-box slider-item">
-                        <img src="" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
-                    </button>
-
-                    <button class="poster-box slider-item">
-                        <img src="" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
-                    </button>
-
-                    <button class="poster-box slider-item">
-                        <img src="{% static 'images/slider-control.jpg' %}" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
-                    </button>
-
-                    <button class="poster-box slider-item">
-                        <img src="{% static 'images/slider-control.jpg' %}" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
-                    </button>
-
-                    <button class="poster-box slider-item">
-                        <img src="" alt="Slide to Puss in Bootss: The last wish" loading="lazy" draggable="false" class="img-cover">
-                    </button>
+                    {% endfor %}
 
                 </div>
             </div>

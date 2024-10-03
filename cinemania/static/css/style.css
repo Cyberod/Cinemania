@@ -733,7 +733,8 @@ header{
   position: absolute;
   inset: 0;
   /* background-image: linear-gradient(var(--banner-overlay)); */
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+  /* background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)); */
+  background-image: linear-gradient(to right, rgba(44, 42, 42, 0.7), rgba(46, 43, 43, 0.3));
 }
 
 .banner-slider .active {
@@ -912,7 +913,16 @@ header{
 
 .movie-detail :is(.meta-list) { color: var(--context-color); }
 
-.movie-detail .genre { margin-block: 12px 16px; }
+.movie-detail .genre{ margin-block: 12px 16px; }
+
+.banner-slider .genre { margin-block: 4px 0px;}
+
+.genre-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
 
 .detail-list { margin-block: 24px 32px; }
 

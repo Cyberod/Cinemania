@@ -4,7 +4,7 @@ import requests
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-import json
+
 
 
 # Create your views here.
@@ -51,7 +51,9 @@ def home(request):
     languages = requests.get(languages_url, params=params).json()
     #print('languages:', languages)
 
+    genre_dict = {genre['id']: genre['name'] for genre in movie_genres}
     nig_language = DESIRED_LANGUAGES
+
     #print('LANGUGES:', nig_language)
     #language = next((lang for lang in languages if lang['english_name'] in nig_language), None)
     #print('language:', language)
@@ -65,6 +67,7 @@ def home(request):
                "movie_genres": movie_genres,
                "nig_language": nig_language,
                "languages": languages,
+               "genre_dict": genre_dict,
                }
 
 
@@ -144,28 +147,49 @@ def movie_detail(request, movie_id):
 
     return render(request,'movies/movie_detail.html', context)
 
-""" def search_movies(request):
+def search_movies(request):
     query = request.GET.get('query')
+    search_movies = []
+    page_number = request.GET.get('page', 1)
     params = {
         "api_key": api_key,
         "language": "en-US",
         "query": query,
+        "page": f'{page_number}',
     }
-    
-    if query:
-        response = requests.get(api_base_url + "search/movie", params=params)
-        if response.status_code == 200:
-            data = response.json()
-            movies = data.get('results', [])
-            data = response.json()
-    
-    context = { 
-        'movies': movies, 
-        'image_base_url': image_base_url, 
-        'query': query 
+    search_movies_url = api_base_url + "search/movie?"
+    response = requests.get(search_movies_url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        search_movies = data.get('results', [])
+        total_pages = data['total_pages']
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            context = {
+                'page': int(page_number),
+                'total_pages': total_pages,
+                'movie': search_movies,
+                'image_base_url': image_base_url,
+                'has_next': int(page_number) < total_pages,
+                'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
+                'query': query, 
+            }
+            return JsonResponse(context)
+        context = {
+            'movies': search_movies,
+            'image_base_url': image_base_url,
+            'has_next': int(page_number) < total_pages,
+            'next_page':int(page_number) + 1 if int(page_number) < total_pages else None,
+            'query': query,
         }
 
-    return render(request, 'movies/search_movies.html', context) """
+        return render(request, 'movies/search_movies.html', context)
+    else:
+        # Handling the error gracefully
+        context = {
+            'error': 'Unable to fetch search movies at the moment'
+        }
+        return render(request, 'movies/search_movies.html', context)
+
 
 def proxy_search(request):
     query = request.GET.get('query')

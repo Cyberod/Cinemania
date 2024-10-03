@@ -60,7 +60,7 @@
                             
                             {% for cast in movie_casts %}
                             {% if cast.known_for_department == "Acting" %}
-                            <p>{{ cast.name }}</p>
+                            <p>{{ cast.name }}{% if not forloop.last %}, {% endif %}</p>
                             {% endif %}
                             {% endfor %}
                         </div>
