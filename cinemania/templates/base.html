@@ -77,14 +77,20 @@
 
     {% endblock %}
    
-
+    <script type="module">
+        import { initializeSidebar } from "{% static 'js/sidebar.js' %}";
+        document.addEventListener('DOMContentLoaded', initializeSidebar);
+        
+        // This will reinitialize the sidebar when navigating between pages
+        document.addEventListener('turbolinks:load', initializeSidebar);
+    </script>
+    
 
     
-        <!-- script Link -->
-        <script type="module" src="{% static 'js/global.js' %}"></script>
-        <script type="module" src="{% static 'js/index.js' %}"></script>
-        <script type="module" src="{% static 'js/movie-list.js' %}"></script>
-        <script type="module" src="{% static 'js/sidebar.js' %}"></script>
-        <script type="module" src="{% static 'js/movie-banner.js' %}"></script>
+    <!-- script Link -->
+    <script type="module" src="{% static 'js/global.js' %}"></script>
+    <script type="module" src="{% static 'js/movie-list.js' %}"></script>
+    
+    <script type="module" src="{% static 'js/movie-banner.js' %}"></script>
 </body>
 </html>
