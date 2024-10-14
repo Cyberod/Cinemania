@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const nextPage = loadMoreButton.dataset.nextPage;
             console.log('Next Page to load:', nextPage);
 
+            // show loading animation
+            loadMoreButton.classList.add('loading');
+
             let url;
             if (viewType === 'search') {
                 url = `?query=${searchQuery}&page=${nextPage}`;
@@ -66,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 console.error('failed to load more movies');
             }
+            // hide loading animation
+            loadMoreButton.classList.remove('loading');
 
         });
     }
