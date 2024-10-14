@@ -23,4 +23,18 @@ addEventOnElements(searchTogglers, "click", function() {
  });
 
 
+ export function initializeSidebar() {
+    const menuBtn = document.querySelector('[menu-btn]');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        menuBtn.classList.toggle('active');
+    });
+
+    // ... existing click event listener ...
+}
+
+
+
 
