@@ -990,15 +990,122 @@ header{
   #MEDIA QUERIES
 \*-----------------------------------*/
 
+@media (max-width: 574px) {
+  .banner-content {
+    bottom: 60%;
+    transform: translateY(50%);
+    left: 30px;
+  }
+
+  /* HOME PAGE */
+  .menu-btn.active .menu,
+  .menu-btn .close { display: none; }
+  
+  .menu-btn .menu,
+  .menu-btn.active .close { display: block; }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .sidebar.active {
+    transform: translateX(-100%);
+    visibility: visible;
+  }
+
+  .sidebar {
+    transform: translateX(0);
+  }
+
+  .container { padding: 24px; }
+
+  .banner-content {
+    bottom: 60%;
+    transform: translateY(50%);
+    left: 50px;
+  }
+  /* MOVIE-DETAIL PAGE */
+
+  .detail-content {
+    max-width: 450px;
+  }
+
+  @media (max-width: 574px) {
+    .movie-grid .movie-inner {
+      justify-content: center;
+    }
+  
+    .movie-grid .movie-card {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .movie-grid .card-banner {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  
+    .movie-grid .title {
+      text-align: center;
+    }
+  
+    .movie-grid .meta-list {
+      justify-content: center;
+    }
+  }
+  
+
+
+}
+
 /* 
  * responsive for larger than 575px screen
 */
 @media (min-width: 575px) {
+
+  /* HOME PAGE */
+  .menu-btn.active .menu,
+  .menu-btn .close { display: none; }
+  
+  .menu-btn .menu,
+  .menu-btn.active .close { display: block; }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .sidebar.active {
+    transform: translateX(-100%);
+    visibility: visible;
+  }
+
+  .sidebar {
+    transform: translateX(0);
+  }
+
+  .container { padding: 24px; }
+
+  .banner-content {
+    bottom: 60%;
+    transform: translateY(50%);
+    left: 50px;
+  }
   /* MOVIE-DETAIL PAGE */
 
   .detail-content {
     max-width: 750px;
   }
+
+  .slider-control {
+    left: calc(100% - 400px);
+  }
+
+  /* DETAIL PAGE */
+  .detail-content { max-width: 750px; }
+
+
 
 }
  
@@ -1022,6 +1129,8 @@ header{
   /* 
   * HOME PAGE
   */
+
+  .container { padding: 24px; }
 
   .slider-list { margin-inline: -24px; }
   
@@ -1050,39 +1159,10 @@ header{
 
   .banner { height: 320px; }
 
-  /* 
-  * MOVIE-DETAIL PAGE
-  */
-
-  .movie-detail {
-    display: flex;
-    align-items: flex-start;
-    gap: 40px;
-  }
-
-.movie-detail .detail-box { flex-grow: 1; } 
-
-  .movie-detail .movie-poster {
-    flex-shrink: 0;
-    position: sticky;
-    top: 0;
-  }
-}
-
-@media (max-width: 1170px) {
-
-  /* SIDEBAR */
-
-  .sidebar-link {
-    padding: 10px;
-  }
-
-  .sidebar-list, .sidebar-footer {
-    padding-inline: 0px;
-}
-
-  .sidebar-footer {
-    font-size: 0.6rem;
+  .banner-content {
+    bottom: 50%;
+    transform: translateY(50%);
+    left: 50px;
   }
 
   .menu-btn.active .menu,
@@ -1096,26 +1176,76 @@ header{
   }
 
   .sidebar.active {
-    transform: translateX(340px);
+    transform: translateX(-100%);
     visibility: visible;
   }
 
   .sidebar {
-    transform: translateX(-340);
+    transform: translateX(0);
   }
 
-  /* DROPDOWN MENU */
-   
 
-  /* BANNER  */
-  .banner-content {
-    max-width: 400px;
+  /* 
+  * MOVIE-DETAIL PAGE
+  */
+
+  .movie-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
   }
 
-  /* CONTAINER */
-  .container {
-    padding-left: 12px;
+  .movie-detail .detail-box { flex-grow: 1; } 
+
+  .movie-detail .movie-poster {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
   }
+
+
+  .movie-detail .slider-list {
+    margin-inline-start: 0;
+    border-radius: var(--radius-16) 0 0 var(--radius-16);
+  }
+
+  .movie-detail .slider-inner::before { display: none; }
 }
+
+@media (min-width: 1200px ) {
+  .header { padding: 28px 30px; }
+
+  .menu-btn,
+  .overlay { display: none; }
+
+  .container { 
+    padding-left: 17%; 
+    height: calc(100vh - 104px);
+    border-top-left-radius: var(--radius-36);
+  }
+
+  .sidebar {
+    position: fixed;
+    border-block-start: 0;
+    height: calc(100vh -104px);
+  }
+  .sidebar-list,
+  .sidebar-footer {padding-inline: 30px;}
+
+  .banner-content {left: 100px;}
+
+  .search-modal {
+    top: 104px;
+    padding: 60px;
+  }
+
+  /* MOVIE DETAIL PAGE */
+  .backdrop-image {border-top-left-radius: var(--radius-36);}
+
+
+}
+
+
+
 
 

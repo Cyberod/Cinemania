@@ -15,25 +15,31 @@ const addEventOnElements = function (elements, eventType, callback) {
 
 const searchBox = document.querySelector("[search-box]");
 const searchTogglers = document.querySelectorAll("[search-toggler]");
+const menuTogglers = document.querySelectorAll("[menu-toggler]");
+
 
 addEventOnElements(searchTogglers, "click", function() { 
     searchBox.classList.toggle("active");
-    subBtn.classList.toggle("active");
-    dropdown.classList.toggle("active");
+
+ });
+
+ const sidebar = document.querySelector(".sidebar");
+ addEventOnElements(menuTogglers, "click", function() {
+     sidebar.classList.toggle("active");
+ });
+ 
+ /**
+  * Close sidebar when clicking outside
+  */
+ document.addEventListener("click", function(event) {
+     if (!event.target.closest(".sidebar") && !event.target.closest("[menu-toggler]")) {
+         sidebar.classList.remove("active");
+     }
  });
 
 
- export function initializeSidebar() {
-    const menuBtn = document.querySelector('[menu-btn]');
-    const sidebar = document.querySelector('.sidebar');
+ 
 
-    menuBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        menuBtn.classList.toggle('active');
-    });
-
-    // ... existing click event listener ...
-}
 
 
 
