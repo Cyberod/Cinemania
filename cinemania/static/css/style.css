@@ -648,6 +648,8 @@ header{
   padding-block-start: 10px;
   margin-block-start: 10px;
   font-size: 0.8rem;
+  bottom: 0;
+  margin-top: 100%;
 }
 
 .copyright {
@@ -991,11 +993,6 @@ header{
 \*-----------------------------------*/
 
 @media (max-width: 574px) {
-  .banner-content {
-    bottom: 60%;
-    transform: translateY(50%);
-    left: 30px;
-  }
 
   /* HOME PAGE */
   .menu-btn.active .menu,
@@ -1019,46 +1016,82 @@ header{
 
   .container { padding: 24px; }
 
-  .banner-content {
-    bottom: 60%;
-    transform: translateY(50%);
-    left: 50px;
-  }
+
   /* MOVIE-DETAIL PAGE */
 
   .detail-content {
     max-width: 450px;
   }
+  /* BANNER */
+  .banner-content {
+    max-width: 100%;
+    padding: 20px;
+  }
 
-  @media (max-width: 574px) {
-    .movie-grid .movie-inner {
-      justify-content: center;
-    }
-  
-    .movie-grid .movie-card {
-      flex: 0 0 100%;
-      max-width: 100%;
-      margin-bottom: 20px;
-    }
-  
-    .movie-grid .card-banner {
-      width: 100%;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-  
-    .movie-grid .title {
-      text-align: center;
-    }
-  
-    .movie-grid .meta-list {
-      justify-content: center;
-    }
+  .banner-content .heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .banner-content .genre-container {
+    margin-bottom: 10px;
+  }
+
+
+  .banner-content .btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .slider-control {
+    display: none;
+  }
+
+  .banner-content .meta-list {
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+
+/*   .banner-content .banner-text {
+    display: none;
+  } */
+
+  /* MOVIE CARD */
+  .movie-card {
+    position: relative;
+    min-width: 150px;
   }
   
+  .movie-card .card-banner { width: 150px; }
 
+  /* MOVIE-GRID */
 
+  .movie-grid .movie-inner {
+    justify-content: center;
+  }
+
+  .movie-grid .movie-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .movie-grid .card-banner {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .movie-grid .title {
+    text-align: center;
+  }
+
+  .movie-grid .meta-list {
+    justify-content: center;
+  }
 }
+
 
 /* 
  * responsive for larger than 575px screen
@@ -1157,12 +1190,15 @@ header{
     width: 300px;
   }
 
-  .banner { height: 320px; }
+  .banner { height: 380px; }
 
   .banner-content {
-    bottom: 50%;
+    bottom: 55%;
     transform: translateY(50%);
     left: 50px;
+  }
+  .banner-content .heading {
+    margin-bottom: 10px;
   }
 
   .menu-btn.active .menu,
@@ -1231,6 +1267,7 @@ header{
   }
   .sidebar-list,
   .sidebar-footer {padding-inline: 30px;}
+
 
   .banner-content {left: 100px;}
 
