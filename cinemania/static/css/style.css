@@ -254,6 +254,7 @@ body {
   gap: 12px;
   justify-content: flex-start;
   align-items: center;
+  padding: 6px;
 }
 
 
@@ -864,14 +865,15 @@ header{
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap to the next line */
   gap: 10px; /* Space between each movie card */
-  padding: 12px; /* Padding around the grid */
+  padding: 10px; /* Padding around the grid */
   box-sizing: border-box;
+  flex: 1 1 200px; /* Allow cards to grow and take available space */
 }
 .movie-grid .movie-card {
   flex: 1; /* Allow cards to grow and take available space */
   min-width: 200px; /* Set a minimum width for the cards */
   max-width: 300px; /* Set a maximum width for the cards */
-  margin-bottom: 20px; /* Add some spacing between rows */
+  margin-bottom: 10px; /* Add some spacing between rows */
 }
 
 

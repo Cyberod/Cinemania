@@ -37,6 +37,16 @@ addEventOnElements(searchTogglers, "click", function() {
      }
  });
 
+ const searchForm = document.getElementById('search-form');
+const searchInput = searchForm.querySelector('input[name="query"]');
+
+searchForm.addEventListener('submit', function(event) {
+    if (searchInput.value.trim() === '') {
+        event.preventDefault();
+    }
+});
+
+
 
  
 
