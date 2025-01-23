@@ -619,6 +619,13 @@ header{
   display: none;
 }
 
+.sidebar-menu.active { display: block; }	
+
+.bx-chevron-down.rotate {
+  transform: rotate(180deg); /* Rotate arrow */
+  transition: transform 0.3s ease;
+}
+
 .sidebar-menu > a {
   background-color: var(--body-color);
   padding: 5px;

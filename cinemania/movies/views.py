@@ -4,6 +4,7 @@ import requests
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+import json
 
 
 
@@ -26,6 +27,35 @@ def fetch_from_tmdb(endpoint, params=None):
     params['api_key'] = api_key
     response = requests.get(url, params=params)
     return response.json()
+
+import requests
+from django.conf import settings
+
+def global_context(request):
+    
+    params = {
+        "api_key": api_key,
+    }
+    
+    # Fetch movie genres
+    movie_genres_url = api_base_url + "genre/movie/list?"
+    movie_genres = requests.get(movie_genres_url, params=params).json().get("genres", [])
+    
+    # Fetch languages
+    languages_url = api_base_url + "configuration/languages?"
+    languages = requests.get(languages_url, params=params).json()
+    
+
+
+    return {
+        'movie_genres': movie_genres,
+        'languages': languages,
+        'nig_language': DESIRED_LANGUAGES,
+    }
+
+
+
+
 
 def home(request):
 
@@ -301,7 +331,7 @@ def movie_language(request, language_id):
             print('movies_url:', movies_url)
             print('movies_data:', movies_data)
             movies = movies_data.get('results', [])
-            
+
             if movies:
                 total_pages = movies_data.get('total_pages', 1)
                 
@@ -332,5 +362,6 @@ def movie_language(request, language_id):
             context = {'error': f'Language with ID {language_id} not found'}
     else:
         context = {'error': 'Unable to fetch language data'}
+
     
     return render(request, 'movies/language_movies.html', context)
