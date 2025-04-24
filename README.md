@@ -132,14 +132,14 @@ Cinemania/
 ## 📸 Screenshots
 
 ### Home Page
-![cinemania1](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f)
-<img src="[image-url](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f)" alt="Alt Text" width="300" style="border-radius: 8px; border: 2px solid #ccc;" />
+<img src="[image-url](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f)" alt="Homepage" width="300" style="border-radius: 8px; border: 2px solid #ccc;" />
 
 ### Movie Details
-![Movie Details](https://via.placeholder.com/800x400)
+<img src="[image-url](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f)" alt="Movie Details" width="300" style="border-radius: 8px; border: 2px solid #ccc;" />
 
 ### Search Results
-![Search Results](https://via.placeholder.com/800x400)
+<img src="[image-url](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f)" alt="Search Results" width="300" style="border-radius: 8px; border: 2px solid #ccc;" />
+
 
 ---
 
