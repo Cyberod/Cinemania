@@ -132,7 +132,7 @@ Cinemania/
 ## 📸 Screenshots
 
 ### Home Page
-![cinemania1](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f)
+![cinemania1](https://github.com/user-attachments/assets/bc7e0d62-8714-4a1a-9a95-c51201678e1f){width=100px}
 
 ### Movie Details
 ![Movie Details](https://via.placeholder.com/800x400)
