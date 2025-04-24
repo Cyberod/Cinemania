@@ -1,6 +1,3 @@
-Here’s a polished and professional **README.md** description for your **Cinemania** app, including styling and formatting:
-
----
 
 # 🎥 Cinemania
 
