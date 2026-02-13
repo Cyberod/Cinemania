@@ -12,6 +12,9 @@ python manage.py collectstatic --noinput
 echo "Starting Gunicorn..."
 cd /app
 
+# Add the Django project directory to Python path
+export PYTHONPATH=/app/cinemania:$PYTHONPATH
+
 # Use PORT environment variable from Render (defaults to 8000)
 PORT=${PORT:-8000}
 
