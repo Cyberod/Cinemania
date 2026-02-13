@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: cinemania
+    runtime: docker
+    region: oregon
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SECRET_KEY
+        value: your-secret-key-change-this-in-render-dashboard
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: cinemania.onrender.com
+      - key: TMDB_API_KEY
+        fromService:
+          type: env
+          name: TMDB_API_KEY
+      - key: TMDB_API_BASE_URL
+        value: "https://api.themoviedb.org/3/"
+      - key: TMDB_IMAGE_BASE_URL
+        value: "https://image.tmdb.org/t/p/w500/"

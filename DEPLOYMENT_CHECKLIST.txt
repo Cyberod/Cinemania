@@ -1,0 +1,40 @@
+# Production deployment checklist
+# Make sure to set all these environment variables on Render
+
+ENVIRONMENT_VARIABLES_NEEDED:
+  - SECRET_KEY: "Your secure Django secret key (generate a new one)"
+  - DEBUG: "False"
+  - ALLOWED_HOSTS: "your-app-name.onrender.com,your-custom-domain.com"
+  - TMDB_API_KEY: "Your TMDB API key"
+  - TMDB_API_BASE_URL: "https://api.themoviedb.org/3/"
+  - TMDB_IMAGE_BASE_URL: "https://image.tmdb.org/t/p/w500/"
+
+SECURITY_RECOMMENDATIONS:
+  1. Never commit .env file to Git
+  2. Use a strong SECRET_KEY (40+ characters, random)
+  3. Set DEBUG=False in production
+  4. Keep ALLOWED_HOSTS specific to your domains
+  5. Use HTTPS only (Render provides this by default)
+  6. Consider using PostgreSQL instead of SQLite
+  7. Set up logging and error tracking
+
+DOCKER_BUILD_COMMAND:
+  docker build -t cinemania:latest .
+
+DOCKER_RUN_COMMAND:
+  docker run -p 8000:8000 \
+    -e SECRET_KEY='your-secret-key' \
+    -e DEBUG='False' \
+    -e ALLOWED_HOSTS='localhost' \
+    -e TMDB_API_KEY='your-api-key' \
+    -e TMDB_API_BASE_URL='https://api.themoviedb.org/3/' \
+    -e TMDB_IMAGE_BASE_URL='https://image.tmdb.org/t/p/w500/' \
+    cinemania:latest
+
+RENDER_DEPLOYMENT:
+  1. Push code to Git repository
+  2. Go to render.com and create new Web Service
+  3. Connect your Git repository
+  4. Select render.yaml or configure manually
+  5. Set all environment variables
+  6. Deploy and monitor logs
