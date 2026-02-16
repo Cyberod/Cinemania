@@ -21,6 +21,15 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS]
 
+# If the app is behind a proxy (Render), honor X-Forwarded-Proto so
+# Django knows the original request scheme (http vs https).
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# CSRF trusted origins can be provided as a comma-separated env var on Render
+# Example (Render env var): CSRF_TRUSTED_ORIGINS=https://cinemania-73gx.onrender.com
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
+CSRF_TRUSTED_ORIGINS = [u.strip() for u in CSRF_TRUSTED_ORIGINS if u.strip()]
+
 
 # Application definition
 
