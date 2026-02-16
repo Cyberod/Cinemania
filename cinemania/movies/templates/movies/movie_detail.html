@@ -85,7 +85,7 @@
                         {% for trailer in trailers %}
                         {% if trailer.type == "Trailer" %}                        
                         <div class="video-card ">
-                            <iframe width="500" height="294" src="https://www.youtube.com/embed/{{trailer.key}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe referrerpolicy="strict-origin-when-cross-origin" width="500" height="294" src="https://www.youtube.com/embed/{{trailer.key}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         {% endif %}
                         {% endfor %}
